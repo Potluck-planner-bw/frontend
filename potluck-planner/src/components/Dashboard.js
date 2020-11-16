@@ -1,10 +1,13 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React, {useContext} from 'react'
 
-const Dashboard = props => {
+import {UserContext} from '../App'
+
+const Dashboard = () => {
+    const user = useContext(UserContext)
+
     return (
         <div>
-        Hello again
+        Hello again {user.username}
         </div>
     )
 }
