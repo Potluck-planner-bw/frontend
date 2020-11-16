@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // components
 import Dashboard from './components/Dashboard';
-import PrivateRoute from './components/PrivateRoute'
+// import PrivateRoute from './components/PrivateRoute'
+import EventPage from './components/EventPage';
 
 // API Context
 export const UserContext = createContext();
@@ -61,9 +62,11 @@ function App() {
         <div className="App">
 
           {/* testing dashboard, delete later */}
-          <Dashboard />
+          <Route exact path='/' component={Dashboard}/>
 
-          <PrivateRoute exact path ='/protected' component={Dashboard} />
+          {/* <PrivateRoute exact path ='/protected' component={Dashboard} /> */}
+
+          <Route path='/event/' component={EventPage} />
         </div>
       </UserContext.Provider>
     </Router>

@@ -25,7 +25,7 @@ const EventCard = props => {
             {event.guests.map((guest, index) => {
                 return <Guest guest={guest} key={index}/>
             })}
-            <Link to='/event/id'>see people and details >></Link>    
+            <Link to='/event'>see people and details >></Link>    
         </div>
 
         </div>
