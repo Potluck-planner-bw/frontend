@@ -21,9 +21,10 @@ const initialUserInfo = {
       title: 'joes cookout',
       date: '10-15-20',
       time: '10am',
-      location: 'pavillion',
+      location: '453 beach st santa monica, ca',
       description: 'bring your favorite bbq',
-      guests: ['mary', 'bob', 'sally']
+      guests: ['mary', 'bob', 'sally'],
+      food: ['chicken', 'chips', 'beer']
     }
   ],
   createdEvents: [
@@ -31,9 +32,10 @@ const initialUserInfo = {
       title: 'My BBQ',
       date: '11-22-20',
       time: '2pm',
-      location: 'beach',
+      location: '934 nw color way chicago, il',
       description: 'bring your own bear',
-      guests: ['Jake', 'TJ', 'Cody']
+      guests: ['Jake', 'TJ', 'Cody'],
+      food: ['cornbread', 'brisket', 'soda']
     }
   ]
 }
@@ -61,12 +63,11 @@ function App() {
       <UserContext.Provider value={userInfo} >
         <div className="App">
 
-          {/* testing dashboard, delete later */}
           <Route exact path='/' component={Dashboard}/>
-
           {/* <PrivateRoute exact path ='/protected' component={Dashboard} /> */}
 
           <Route path='/event/' component={EventPage} />
+
         </div>
       </UserContext.Provider>
     </Router>

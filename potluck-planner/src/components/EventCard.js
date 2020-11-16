@@ -19,12 +19,8 @@ const EventCard = props => {
             <button onClick={toggleInfo}>Click to Expand</button>
         </div>
         <div className={!showInfo ? 'event-info' : null }>
-            <p>Location: {event.location}</p>
+            <p>{event.location}</p>
             <p>Description: {event.description}</p>
-            <p>Guests:</p>
-            {event.guests.map((guest, index) => {
-                return <Guest guest={guest} key={index}/>
-            })}
             <Link to='/event'>see people and details >></Link>    
         </div>
 

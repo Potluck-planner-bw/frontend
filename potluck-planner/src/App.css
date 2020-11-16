@@ -24,3 +24,31 @@
 .event-card span {
   padding: 3%;
 }
+
+
+/* Event Page  */
+
+.event-page {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.event-page-title {
+  width: 100%;
+}
+
+.event-page-column {
+  width: 40%;
+}
+
+.column-names {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.yes-column, .no-column {
+  width: 40%;
+}
+
