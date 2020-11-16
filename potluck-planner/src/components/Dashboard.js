@@ -4,7 +4,7 @@ import axios from 'axios'
 const Dashboard = props => {
     return (
         <div>
-        Hello
+        Hello again
         </div>
     )
 }
