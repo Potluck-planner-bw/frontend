@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
+import Guest from './Guest'
 
-const Event = props => {
+const EventCard = props => {
     const {event} = props
     const [showInfo, setShowInfo] = useState(false)
 
@@ -19,11 +21,15 @@ const Event = props => {
         <div className={!showInfo ? 'event-info' : null }>
             <p>Location: {event.location}</p>
             <p>Description: {event.description}</p>
-            <p>Guests: {event.guests}</p>    
+            <p>Guests:</p>
+            {event.guests.map((guest, index) => {
+                return <Guest guest={guest} key={index}/>
+            })}
+            <Link to='/event/id'>see people and details >></Link>    
         </div>
 
         </div>
     )
 }
 
-export default Event
+export default EventCard

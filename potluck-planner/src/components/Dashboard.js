@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 
 // components
 import {UserContext} from '../App'
-import Event from './Event'
+import EventCard from './EventCard'
 
 const Dashboard = () => {
     const user = useContext(UserContext)
@@ -13,7 +13,7 @@ const Dashboard = () => {
                 <h2>Joined</h2>
                 {
                     user.joinedEvents.map(event => {
-                        return <Event key={event.title} event={event} />
+                        return <EventCard key={event.title} event={event} />
                     })
                 }
             </div>
@@ -21,7 +21,7 @@ const Dashboard = () => {
                 <h2>Created</h2>
                 {
                     user.createdEvents.map(event => {
-                        return <Event key={event.title} event={event} />
+                        return <EventCard key={event.title} event={event} />
                     })
                 }
             </div>
