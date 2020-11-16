@@ -1,0 +1,56 @@
+form {
+	display: flex;
+	flex-flow: column nowrap;
+}
+input {
+	color: #201b15;
+	font-family: 'Rubik', sans-serif;
+	outline: none;
+	border: none;
+	border-bottom: solid;
+	background: none;
+	margin-bottom: 2rem;
+}
+input::placeholder {
+	color: #201b155f;
+}
+
+.eventTitle {
+	font-size: 7.2rem;
+}
+
+.eventDate,
+.eventTime,
+span {
+	font-size: 3.6rem;
+}
+
+.eventStreetAddress,
+.eventCity,
+.eventState,
+.eventZip,
+.eventDescription {
+	font-size: 2.4rem;
+}
+
+.form-bordered-btn {
+	border: 2px solid;
+	border-radius: 30px;
+	padding: 0.5rem 1rem;
+	font-size: 2.4rem;
+	font-weight: 700;
+	background: none;
+}
+.form-bordered-btn:hover {
+	background-color: #201b15;
+	color: #f7dfdb;
+	text-decoration: none;
+}
+
+h2 {
+	margin-bottom: 10rem;
+}
+
+.joinUrl {
+	font-size: 2.4rem;
+}

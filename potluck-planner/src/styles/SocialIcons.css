@@ -1,0 +1,11 @@
+.social-icons {
+	/* border: 1px solid red; */
+	position: absolute;
+	z-index: 2;
+	bottom: 5rem;
+	right: 5rem;
+}
+
+svg {
+	margin-left: 2rem;
+}

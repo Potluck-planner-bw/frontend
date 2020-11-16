@@ -1,7 +1,7 @@
-import './App.css';
 import React, { useState, createContext, useEffect } from "react";
 import axios from 'axios'
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import './styles/App.css';
 
 // components
 import Dashboard from './components/Dashboard';
@@ -62,6 +62,11 @@ function App() {
     <Router>
       <UserContext.Provider value={userInfo} >
         <div className="App">
+        {/* <Dashboard /> */}
+			{/* <Landing /> */}
+			{/* <About /> */}
+			{/* <CreateEvent /> */}
+			{/* <JoinEvent /> */}
 
           <Route exact path='/' component={Dashboard}/>
           {/* <PrivateRoute exact path ='/protected' component={Dashboard} /> */}
@@ -72,6 +77,7 @@ function App() {
       </UserContext.Provider>
     </Router>
   );
+
 }
 
 export default App;
