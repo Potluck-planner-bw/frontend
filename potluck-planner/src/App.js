@@ -27,12 +27,12 @@ const initialUserInfo = {
   ],
   createdEvents: [
     {
-      title: 'joes cookout',
-      date: '10-15-20',
-      time: '10am',
-      location: 'pavillion',
-      description: 'bring your favorite bbq',
-      guests: ['mary', 'bob', 'sally']
+      title: 'My BBQ',
+      date: '11-22-20',
+      time: '2pm',
+      location: 'beach',
+      description: 'bring your own bear',
+      guests: ['Jake', 'TJ', 'Cody']
     }
   ]
 }
@@ -50,16 +50,20 @@ function App() {
       })
   }
 
-
   useEffect(() => {
     getUserInfo()
   }, [])
+
+  
   return (
     <Router>
       <UserContext.Provider value={userInfo} >
         <div className="App">
+
+          {/* testing dashboard, delete later */}
           <Dashboard />
-          {/* <PrivateRoute exact path ='/protected' component={Dashboard} /> */}
+
+          <PrivateRoute exact path ='/protected' component={Dashboard} />
         </div>
       </UserContext.Provider>
     </Router>
