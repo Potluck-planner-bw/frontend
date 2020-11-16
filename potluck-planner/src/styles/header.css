@@ -3,6 +3,7 @@ header {
 	flex-flow: row nowrap;
 	justify-content: space-between;
 	align-items: center;
+	margin-bottom: 5rem;
 }
 
 nav {
@@ -18,12 +19,12 @@ nav a:hover {
 	text-decoration: underline;
 }
 
-.signup-btn {
+.bordered-btn {
 	border: 2px solid;
 	border-radius: 30px;
 	padding: 0.5rem 1rem;
 }
-.signup-btn:hover {
+.bordered-btn:hover {
 	background-color: #201b15;
 	color: #f7dfdb;
 	text-decoration: none;
