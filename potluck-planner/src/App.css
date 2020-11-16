@@ -5,8 +5,22 @@
 .dashboard {
   display: flex;
   justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .dashboard-column {
   width: 40%;
+}
+
+.event-card {
+  border: 3px solid black;
+}
+
+.event-info {
+  display: none;
+}
+
+.event-card span {
+  padding: 3%;
 }
