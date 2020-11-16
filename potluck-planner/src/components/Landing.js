@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
-import { FiTwitter, FiInstagram, FiFacebook } from 'react-icons/fi';
+import SocialIcons from './SocialIcons';
+import '../styles/Landing.css';
 
 const Landing = () => {
 	return (
@@ -10,11 +11,7 @@ const Landing = () => {
 				plan your events with &#123;evnt&#125;. the best way to make sure
 				everyone, and everything, gets to where it needs to.
 			</h2>
-			<div>
-				<FiTwitter />
-				<FiInstagram />
-				<FiFacebook />
-			</div>
+			<SocialIcons />
 		</>
 	);
 };
