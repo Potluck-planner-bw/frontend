@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
+import Guest from './Guest'
 
-const Event = props => {
+const EventCard = props => {
     const {event} = props
     const [showInfo, setShowInfo] = useState(false)
 
@@ -17,13 +19,13 @@ const Event = props => {
             <button onClick={toggleInfo}>Click to Expand</button>
         </div>
         <div className={!showInfo ? 'event-info' : null }>
-            <p>Location: {event.location}</p>
+            <p>{event.location}</p>
             <p>Description: {event.description}</p>
-            <p>Guests: {event.guests}</p>    
+            <Link to='/event'>see people and details >></Link>    
         </div>
 
         </div>
     )
 }
 
-export default Event
+export default EventCard
