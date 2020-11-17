@@ -10,6 +10,8 @@ import Dashboard from './components/Dashboard';
 // import PrivateRoute from './components/PrivateRoute'
 import EventPage from './components/EventPage';
 
+import TestLogin from './components/TestLogin';
+
 // API Context
 export const UserContext = createContext();
 
@@ -66,6 +68,8 @@ function App() {
 					<Route exact path='/events/:id' render={(props) => (
 						<EventPage {...props} userInfo={userInfo} setUserInfo={setUserInfo} />
 					)} />
+
+					<Route exact path='/test-log-in' component={TestLogin} />
 
 					<Route exact path='/about' component={About} />
 					<Route exact path='/' component={Landing} />
