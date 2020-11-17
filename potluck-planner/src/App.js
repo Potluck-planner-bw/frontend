@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import {axiosWithAuth} from './utils/axiosWithAuth'
+import axiosWithAuth from './utils/axiosWithAuth'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './styles/App.css';
 
