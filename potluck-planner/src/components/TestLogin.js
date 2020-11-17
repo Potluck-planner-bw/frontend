@@ -25,7 +25,7 @@ const TestLogin = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		axiosWithAuth()
-			.post(`/api/auth/login`, {
+			.post(`/auth/login`, {
 				username: credentials.username,
 				password: credentials.password,
 			})
