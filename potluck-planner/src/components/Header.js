@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 
 const initialValue = false;
@@ -7,30 +8,30 @@ const Header = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(initialValue);
 	return (
 		<header>
-			<a href='/'>
+			<Link to='/'>
 				<h1>&#123;evnt&#125;</h1>
-			</a>
+			</Link>
 
 			{isLoggedIn ? (
 				<nav>
-					<a href='/' className='bordered-btn'>
+					<Link to='/create-event' className='bordered-btn'>
 						create event
-					</a>
-					<a href='/' className='bordered-btn'>
+					</Link>
+					<Link to='/join-event' className='bordered-btn'>
 						join event
-					</a>
-					<a href='/' className='bordered-btn'>
+					</Link>
+					<Link to='/' className='bordered-btn'>
 						log out
-					</a>
+					</Link>
 				</nav>
 			) : (
 				<nav>
-					<a href='/'>home</a>
-					<a href='/'>about</a>
-					<a href='/'>log in</a>
-					<a href='/' className='bordered-btn'>
+					<Link to='/'>home</Link>
+					<Link to='/about'>about</Link>
+					<Link to='/log-in'>log in</Link>
+					<Link to='/sign-up' className='bordered-btn'>
 						sign up
-					</a>
+					</Link>
 				</nav>
 			)}
 		</header>
