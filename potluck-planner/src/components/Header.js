@@ -1,18 +1,42 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../styles/header.css';
 
 const initialValue = false;
 
 const Header = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(initialValue);
-	return (
-		<header>
-			<Link to='/'>
-				<h1>&#123;evnt&#125;</h1>
-			</Link>
+	const { push } = useHistory();
+	// const [isLoggedIn, setIsLoggedIn] = useState(initialValue);
+	console.log('token', localStorage.getItem('token'));
 
-			{isLoggedIn ? (
+	const handleLogOut = () => {
+		localStorage.removeItem('token');
+		push(`/`);
+	};
+
+	if (localStorage.getItem('token') === null) {
+		return (
+			<header>
+				<Link to='/'>
+					<h1>&#123;evnt&#125;</h1>
+				</Link>
+				<nav>
+					<Link to='/'>home</Link>
+					<Link to='/about'>about</Link>
+					<Link to='/test-log-in'>log in</Link>
+					<Link to='/sign-up' className='bordered-btn'>
+						sign up
+					</Link>
+				</nav>
+			</header>
+		);
+	} else {
+		return (
+			<header>
+				<Link to='/'>
+					<h1>&#123;evnt&#125;</h1>
+				</Link>
 				<nav>
 					<Link to='/create-event' className='bordered-btn'>
 						create event
@@ -20,22 +44,48 @@ const Header = () => {
 					<Link to='/join-event' className='bordered-btn'>
 						join event
 					</Link>
-					<Link to='/' className='bordered-btn'>
+					{/* <Link to='/' className='bordered-btn'>
 						log out
-					</Link>
+					</Link> */}
+					<button onClick={handleLogOut} className='bordered-btn'>
+						log out
+					</button>
 				</nav>
-			) : (
-				<nav>
-					<Link to='/'>home</Link>
-					<Link to='/about'>about</Link>
-					<Link to='/log-in'>log in</Link>
-					<Link to='/sign-up' className='bordered-btn'>
-						sign up
-					</Link>
-				</nav>
-			)}
-		</header>
-	);
+			</header>
+		);
+	}
+
+	// {
+	// 	return (
+	// 		<header>
+	// 			<Link to='/'>
+	// 				<h1>&#123;evnt&#125;</h1>
+	// 			</Link>
+	// 			{isLoggedIn ? (
+	// 				<nav>
+	// 					<Link to='/create-event' className='bordered-btn'>
+	// 						create event
+	// 					</Link>
+	// 					<Link to='/join-event' className='bordered-btn'>
+	// 						join event
+	// 					</Link>
+	// 					<Link to='/' className='bordered-btn'>
+	// 						log out
+	// 					</Link>
+	// 				</nav>
+	// 			) : (
+	// 				<nav>
+	// 					<Link to='/'>home</Link>
+	// 					<Link to='/about'>about</Link>
+	// 					<Link to='/test-log-in'>log in</Link>
+	// 					<Link to='/sign-up' className='bordered-btn'>
+	// 						sign up
+	// 					</Link>
+	// 				</nav>
+	// 			)}
+	// 		</header>
+	// 	);
+	// }
 };
 
 export default Header;
