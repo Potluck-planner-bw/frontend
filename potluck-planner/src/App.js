@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import axios from 'axios';
+import {axiosWithAuth} from './utils/axiosWithAuth'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './styles/App.css';
 
@@ -15,43 +15,40 @@ import TestLogin from './components/TestLogin';
 // API Context
 export const UserContext = createContext();
 
+// login response data
+const initialLogin = {
+	id: '2',
+	username: 'Jake',
+	password: 'password',
+}
+
 // initial user state
 const initialUserInfo = {
-	username: 'alden',
-	email: 'ach52@gmail.com',
-	password: 'donkey',
-	joinedEvents: [
-		{
-			title: 'joes cookout',
-			date: '10-15-20',
-			time: '10am',
-			location: '453 beach st santa monica, ca',
-			description: 'bring your favorite bbq',
-			guests: ['mary', 'bob', 'sally'],
-			food: ['chicken', 'chips', 'beer'],
-		},
-	],
-	createdEvents: [
-		{
-			title: 'My BBQ',
-			date: '11-22-20',
-			time: '2pm',
-			location: '934 nw color way chicago, il',
-			description: 'bring your own bear',
-			guests: ['Jake', 'TJ', 'Cody'],
-			food: ['cornbread', 'brisket', 'soda'],
-		},
-	],
-};
+    "id": 2,
+    "username": "Jake",
+    "password": "password",
+    "events": [
+        {
+            "id": 1,
+            "event_name": "Fairmount Park Meet Up",
+            "time": "10:00am",
+            "address": "Fairmount Park, Philadelphia",
+            "dates": "11-20-20",
+            "guests": "TJ, Alden, Jake, Cory",
+            "users_id": 2
+        }
+    ]
+}
 
 function App() {
-	const [userInfo] = useState(initialUserInfo);
+	const [userInfo, setUserInfo] = useState(initialUserInfo);
 
 	const getUserInfo = () => {
-		axios
-			.get(``)
+		axiosWithAuth()
+			.get(`/users/${initialLogin.id}/events`)
 			.then((res) => {
-				console.log(res);
+				console.log(res)
+				setUserInfo(res.data)
 			})
 			.catch((err) => {
 				console.log(err);
