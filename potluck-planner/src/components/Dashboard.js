@@ -32,8 +32,10 @@ const Dashboard = () => {
             <div className='dashboard-column'>
                 <h2>Joined Events</h2>
                 {
-                    user.events.map(event => {
-                        return <EventCard key={event.title} event={event} />
+                    user.events.filter(event => {
+                        return event.id !== user.id
+                    }).map(item => {
+                        return <EventCard key={item.title} event={item} /> 
                     })
                 }
             </div>

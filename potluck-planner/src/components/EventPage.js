@@ -1,13 +1,39 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+import { useHistory, useParams } from "react-router-dom";
 
 // components
 import {UserContext} from '../App'
 
 const EventPage = props => {
-    const user = useContext(UserContext)
-    // const [userInfo, setUserInfo] = useState(user)
+    // const {userInfo, setUserInfo} = props
+    // const [user, setUser] = useState(null)
+
+    // food state
     const [food, setFood] = useState('')
 
+    const params = useParams()
+    const { push } = useHistory()
+
+    // API context
+    const user = useContext(UserContext)
+    const [userInfo, setUserInfo] = useState(user)
+    const [event, setEvent] = useState(null)
+
+    const fetchEvent = (id) => {
+        axiosWithAuth().get(`/events/${id}`)
+            .then(res => {
+                console.log(res)
+                setEvent(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    useEffect(() => {
+        fetchEvent(params.id)
+    }, [])
 
     const changeHandler = e => {
         setFood(e.target.value)
@@ -19,11 +45,11 @@ const EventPage = props => {
 
     return (
         <div className='event-page'>
-            <h2 className='event-page-title'>Surprise Party</h2>
+            <h2 className='event-page-title'>{event.event_name}</h2>
             <div className='event-page-column'>
                 <div>
-                    <h3>8/21/21 @ 8:30pm</h3>
-                    <p>Address here</p>
+                    <h3>{event_time}, {event_dates}</h3>
+                    <p>{event_address}</p>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
                 </div>
                 <div>

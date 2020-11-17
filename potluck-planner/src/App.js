@@ -32,7 +32,8 @@ const initialUserInfo = {
             "time": "10:00am",
             "address": "Fairmount Park, Philadelphia",
             "dates": "11-20-20",
-            "guests": "TJ, Alden, Jake, Cory",
+			"guests": "TJ, Alden, Jake, Cory",
+			'description': 'add description here',
             "users_id": 2
         }
     ]
@@ -45,7 +46,6 @@ function App() {
 		axiosWithAuth()
 			.get(`/users/${initialLogin.id}/events`)
 			.then((res) => {
-				console.log(res)
 				setUserInfo(res.data)
 			})
 			.catch((err) => {
@@ -63,10 +63,14 @@ function App() {
 				<div className='App'>
 					<Route exact path='/dashboard' component={Dashboard} />
 					{/* <PrivateRoute exact path ='/protected' component={Dashboard} /> */}
-					<Route exact path='/event' component={EventPage} />
+					<Route exact path='/events/:id' render={(props) => (
+						<EventPage {...props} userInfo={userInfo} setUserInfo={setUserInfo} />
+					)} />
 
 					<Route exact path='/about' component={About} />
 					<Route exact path='/' component={Landing} />
+
+					
 				</div>
 			</UserContext.Provider>
 		</Router>

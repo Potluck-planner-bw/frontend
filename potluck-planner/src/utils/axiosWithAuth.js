@@ -5,7 +5,6 @@ export const axiosWithAuth = () => {
 
     return axios.create({
         baseURL: 'https://potluck-planner-bw2020.herokuapp.com/api',
-        
         headers: {
             authorization: token
         }
