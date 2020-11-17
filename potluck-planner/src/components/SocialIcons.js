@@ -1,13 +1,13 @@
 import React from 'react';
-import { FiTwitter, FiInstagram, FiFacebook } from 'react-icons/fi';
+// import { FiTwitter, FiInstagram, FiFacebook } from 'react-icons/fi';
 import '../styles/SocialIcons.css';
 
 const SocialIcons = () => {
 	return (
 		<div className='social-icons'>
-			<FiTwitter />
+			{/* <FiTwitter />
 			<FiInstagram />
-			<FiFacebook />
+			<FiFacebook /> */}
 		</div>
 	);
 };

@@ -1,4 +1,5 @@
-import React, {useContext} from 'react'
+import {axiosWithAuth} from '../utils/axiosWithAuth'
+import React, {useContext, useEffect} from 'react'
 
 // components
 import {UserContext} from '../App'
@@ -7,20 +8,31 @@ import EventCard from './EventCard'
 const Dashboard = () => {
     const user = useContext(UserContext)
 
+    const getEvents = () => {
+        axiosWithAuth()
+            .get()
+    }
+
+    useEffect(() => {
+        getEvents()
+    }, [])
+
     return (
         <div className='dashboard'>
             <div className='dashboard-column'>
-                <h2>Joined</h2>
+                <h2>My Events</h2>
                 {
-                    user.joinedEvents.map(event => {
-                        return <EventCard key={event.title} event={event} />
+                    user.events.filter(event => {
+                        return event.id === user.id
+                    }).map(item => {
+                        return <EventCard key={item.title} event={item} /> 
                     })
                 }
             </div>
             <div className='dashboard-column'>
-                <h2>Created</h2>
+                <h2>Joined Events</h2>
                 {
-                    user.createdEvents.map(event => {
+                    user.events.map(event => {
                         return <EventCard key={event.title} event={event} />
                     })
                 }

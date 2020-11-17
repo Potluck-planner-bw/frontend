@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Header.css';
+import '../styles/header.css'
 
 const initialValue = false;
 
 const Header = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(initialValue);
+	
 	return (
 		<header>
 			<Link to='/'>
