@@ -58,16 +58,6 @@ const TestLogin = () => {
 				setUsers(res.data)
                 // }) 
             })
-
-		// axiosWithAuth()
-		// 	.get(`/users/${params.id}/events`)
-		// 	.then(res => {
-		// 		console.log(res)
-		// 		setUserInfo(res.data)
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err);
-		// 	});
 	};
 
 	useEffect(() => {
