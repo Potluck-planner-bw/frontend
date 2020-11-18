@@ -44,7 +44,7 @@ const TestLogin = () => {
 				})
 
 				localStorage.setItem('userID', JSON.stringify(userID[0].id))
-				localStorage.setItem('username', JSON.stringify(userID[0].username))
+				localStorage.setItem('username', (userID[0].username))
 
 				push(`/dashboard/${userID[0].id}`);
 			})

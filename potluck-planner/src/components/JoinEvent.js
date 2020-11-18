@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react';
 import Header from './Header';
 import '../styles/CreateEvent.css';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import {useHistory} from 'react-router-dom'
 
 
 const JoinEvent = () => {
 	const [userID, setUserID] = useState('')
-    const [event, setEvent] = useState([])
+	const [event, setEvent] = useState([])
+	const { push } = useHistory()
 
 	const onChange = e => {
 		setUserID(e.target.value)
@@ -19,30 +21,24 @@ const JoinEvent = () => {
         .get(`/events/${userID}`)
         .then(res => {
             console.log(res)
-            setEvent(res.data[0])
+			setEvent(res.data[0])
+			let guestList = res.data[0].guests
+			guestList += `, ${localStorage.getItem('username')}`
+			console.log('guest list', guestList)
+			setEvent({
+				...event,
+				guests: guestList
+			})
         })
         .catch((err) => {
             console.log(err);
 		});
-		
-		console.log('event', event)
-		console.log('guest list', event.guests)
-
-		// const username = localStorage.getItem('username')
-		// const newGuestList = event.guests.concat(`, ${username}`)
-
-		setEvent({
-			...event,
-			guests: newGuestList
-		})
-		
-		console.log('checking event', event)
 
 		axiosWithAuth()
 		.put(`/events/${userID}`, event)
 		.then(res => {
 			console.log(res)
-
+			push(`/dashboard/${localStorage.getItem('userID')}`)
 		})
 		.catch(err => {
 			console.log(err)
