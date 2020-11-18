@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import axiosWithAuth from '../utils/axiosWithAuth';
@@ -12,10 +12,13 @@ const initialCredentials = {
 	password: '',
 };
 
+const initialUsers = []
+
 const TestLogin = () => {
 	const { push } = useHistory();
 	const [credentials, setCredentials] = useState(initialCredentials);
-	console.log('credentials', credentials);
+	const [users, setUsers] = useState(initialUsers)
+	// console.log('credentials', credentials);
 
 	const handleChange = (event) => {
 		setCredentials({
@@ -34,30 +37,42 @@ const TestLogin = () => {
 			.then((res) => {
 				console.log('login post res', res);
 				console.log('res.data.token', res.data.token);
-
 				localStorage.setItem('token', res.data.token);
 
-				// filter for id that matches username
-				axiosWithAuth()
-				.get('/users')
-					.then(res => {
-						console.log(res)
-						setCredentials({
-							...credentials,
-							id: res.data.filter(user => {
-								return user.username === credentials.username
-							})[0].id
-						}) 
-					})
-					.catch(err => {
-						console.log(err)
-					})
-				push(`/dashboard/${credentials.id}`);
+				const userID = users.filter(user => {
+					return user.username === credentials.username
+				})
+
+				push(`/dashboard/${userID[0].id}`);
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log(err);
 			});
 	};
+
+	const getUserInfo = () => {
+        axiosWithAuth()
+        .get('/users')
+            .then(res => {
+				console.log(res)
+				setUsers(res.data)
+                // }) 
+            })
+
+		// axiosWithAuth()
+		// 	.get(`/users/${params.id}/events`)
+		// 	.then(res => {
+		// 		console.log(res)
+		// 		setUserInfo(res.data)
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err);
+		// 	});
+	};
+
+	useEffect(() => {
+        getUserInfo()
+    }, []);
 
 	return (
 		<>
