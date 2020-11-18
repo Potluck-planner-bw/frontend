@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -6,6 +7,7 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 import Header from './Header';
 
 const initialCredentials = {
+	id: '',
 	username: '',
 	password: '',
 };
@@ -34,7 +36,23 @@ const TestLogin = () => {
 				console.log('res.data.token', res.data.token);
 
 				localStorage.setItem('token', res.data.token);
-				push(`/dashboard`);
+
+				// filter for id that matches username
+				axiosWithAuth()
+				.get('/users')
+					.then(res => {
+						console.log(res)
+						setCredentials({
+							...credentials,
+							id: res.data.filter(user => {
+								return user.username === credentials.username
+							})[0].id
+						}) 
+					})
+					.catch(err => {
+						console.log(err)
+					})
+				push(`/dashboard/${credentials.id}`);
 			})
 			.catch((err) => {
 				console.log(err);

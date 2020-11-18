@@ -3,7 +3,7 @@ import axiosWithAuth from '../utils/axiosWithAuth'
 import { useHistory, useParams } from "react-router-dom";
 
 // components
-import {UserContext} from '../App'
+
 
 const EventPage = props => {
     // const {userInfo, setUserInfo} = props
@@ -16,8 +16,7 @@ const EventPage = props => {
     const { push } = useHistory()
 
     // API context
-    const user = useContext(UserContext)
-    const [userInfo, setUserInfo] = useState(user)
+    // const [userInfo, setUserInfo] = useState(user)
     const [event, setEvent] = useState(null)
 
     const fetchEvent = (id) => {
@@ -45,11 +44,11 @@ const EventPage = props => {
 
     return (
         <div className='event-page'>
-            <h2 className='event-page-title'>{event.event_name}</h2>
+            <h2 className='event-page-title'></h2>
             <div className='event-page-column'>
                 <div>
-                    <h3>{event_time}, {event_dates}</h3>
-                    <p>{event_address}</p>
+                    <h3></h3>
+                    <p></p>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
                 </div>
                 <div>

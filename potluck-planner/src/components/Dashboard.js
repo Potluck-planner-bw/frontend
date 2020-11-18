@@ -1,22 +1,36 @@
 import axiosWithAuth from '../utils/axiosWithAuth'
-import React, {useContext, useEffect} from 'react'
+import React, {useEffect, useState, useParams} from 'react'
 
 // components
-import { UserContext } from '../App';
 import EventCard from './EventCard';
 import Header from './Header';
 
-const Dashboard = () => {
-	const user = useContext(UserContext);
+// initial user state
+const initialCredentials = {
+	id: '',
+	username: '',
+	password: '',
+};
 
-    const getEvents = () => {
-        axiosWithAuth()
-            .get()
-    }
+const Dashboard = (props) => {
+    const [userInfo, setUserInfo] = useState(initialCredentials);
+    const params = useParams();
 
-    useEffect(() => {
-        getEvents()
-    }, [])
+	const getUserInfo = () => {
+		axiosWithAuth()
+			.get(`/users/${params.id}/events`)
+			.then(res => {
+				console.log(res)
+				setUserInfo(res.data)
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+	useEffect(() => {
+		getUserInfo();
+    }, []);
 
     return (
         <>
@@ -25,8 +39,8 @@ const Dashboard = () => {
             <div className='dashboard-column'>
                 <h2>My Events</h2>
                 {
-                    user.events.filter(event => {
-                        return event.id === user.id
+                    userInfo.events.filter(event => {
+                        return event.id === userInfo.id
                     }).map(item => {
                         return <EventCard key={item.title} event={item} /> 
                     })
@@ -35,8 +49,8 @@ const Dashboard = () => {
             <div className='dashboard-column'>
                 <h2>Joined Events</h2>
                 {
-                    user.events.filter(event => {
-                        return event.id !== user.id
+                    userInfo.events.filter(event => {
+                        return event.id !== userInfo.id
                     }).map(item => {
                         return <EventCard key={item.title} event={item} /> 
                     })
