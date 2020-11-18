@@ -46,7 +46,7 @@ const TestLogin = () => {
 			<Header />
 			<form onSubmit={handleSubmit}>
 				<h2>test login</h2>
-				<p>username: User1</p>
+				<p>username: Test1</p>
 				<p>password: password</p>
 				<input
 					type='text'
