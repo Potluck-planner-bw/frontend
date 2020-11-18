@@ -31,7 +31,7 @@ function App() {
 					<Route exact path='/about' component={About} />
 					<Route exact path='/' component={Landing} />
 					<Route exact path='/sign-up' component={SignUp} />
-					<Route exact path='/create-event' component={CreateEvent} />
+					<Route exact path='/create-event' render={(props) => <CreateEvent {...props} /> }  />
 
 				</div>
 		</Router>

@@ -11,8 +11,22 @@ const initialValues = {
 	address: '',
 	dates: '',
 	guests: '',
+	description: '',
+	created: '',
 	users_id: ''
 }
+
+// this object worked for TJ in postman
+// {
+// 	"event_name": "Thanksgiving Food Drive 2021",
+// 	"time": "10:00am",
+// 	"address": "Phoenix, Arizona",
+// 	"dates": "11-20-20",
+// 	"guests": "TJ, Alden, Jake, Cory",
+// 	"description": "The safest way to celebrate Thanksgiving this year is to celebrate with people in your household.",
+// 	"created": 1,
+// 	"users_id": 2
+// }
 
 const CreateEvent = () => {
 	const [values, setValues] = useState(initialValues)
@@ -33,8 +47,10 @@ const CreateEvent = () => {
 			time: values.time,
 			address: values.address,
 			dates: values.dates,
-			guests: values.guests,
-			users_id: params.id
+			guests: values.guests.split(','),
+			description: values.description,
+			created: 1,
+			users_id: 4
 		}
 
 		axiosWithAuth()
@@ -53,6 +69,8 @@ const CreateEvent = () => {
 			})
 			.catch(err => {
 				console.log(err);
+				console.log(newEvent)
+
 			});
 	};
 
@@ -103,13 +121,13 @@ const CreateEvent = () => {
 						onChange={handleChange}
 					/>
 				</div> */}
-				{/* <input
+				<input
 					type='text'
 					name='description'
 					className='eventDescription'
 					placeholder='description'
 					onChange={handleChange}
-				/> */}
+				/>
 				<input
 					type='text'
 					name='guests'
