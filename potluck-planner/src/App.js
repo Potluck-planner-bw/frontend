@@ -12,6 +12,7 @@ import EventPage from './components/EventPage';
 import TestLogin from './components/TestLogin';
 import SignUp from './components/SignUp';
 import CreateEvent from './components/CreateEvent';
+import JoinEvent from './components/JoinEvent';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
 					<Route exact path='/' component={Landing} />
 					<Route exact path='/sign-up' component={SignUp} />
 					<Route exact path='/create-event' render={(props) => <CreateEvent {...props} /> }  />
+					<Route exact path ='/join-event' component={JoinEvent}/>
 
 				</div>
 		</Router>

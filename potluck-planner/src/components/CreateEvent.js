@@ -43,14 +43,14 @@ const CreateEvent = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const newEvent = {
-			event_name: values.event_name,
-			time: values.time,
-			address: values.address,
-			dates: values.dates,
-			guests: values.guests.split(','),
-			description: values.description,
-			created: 1,
-			users_id: 4
+			"event_name": values.event_name,
+			"time": values.time,
+			"address": values.address,
+			"dates": values.dates,
+			"guests": values.guests,
+			"description": values.description,
+			"created": 1,
+			"users_id": 4
 		}
 
 		axiosWithAuth()
@@ -66,6 +66,7 @@ const CreateEvent = () => {
 
 				// push(`/dashboard/${userID[0].id}`);
 				console.log(res)
+				
 			})
 			.catch(err => {
 				console.log(err);
