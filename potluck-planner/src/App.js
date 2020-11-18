@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import axiosWithAuth from './utils/axiosWithAuth'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useRouteMatch } from 'react-router-dom';
 import './styles/App.css';
 
 // components
@@ -13,10 +13,19 @@ import TestLogin from './components/TestLogin';
 import SignUp from './components/SignUp';
 import CreateEvent from './components/CreateEvent';
 import JoinEvent from './components/JoinEvent';
+import Header from './components/Header';
+
+// API Context
+const UserContext = createContext()
+
+
 
 function App() {
+	const [user, setUser] = useState(null)
+	// useRouterMatch
 
 	return (
+		<UserContext.Provider value={user}>
 		<Router>
 				<div className='App'>
 					<Route exact path='/dashboard/:id' render={(props)=> <Dashboard {...props} />}	
@@ -28,15 +37,20 @@ function App() {
 					)} />
 
 					<Route exact path='/test-log-in' component={TestLogin}/>
+					<Route exact path='/' component={Landing}/>
+					
 
 					<Route exact path='/about' component={About} />
-					<Route exact path='/' component={Landing} />
+					{/* <Route exact path='/' component={Landing} /> */}
 					<Route exact path='/sign-up' component={SignUp} />
+
 					<Route exact path='/create-event' render={(props) => <CreateEvent {...props} /> }  />
+
 					<Route exact path ='/join-event' component={JoinEvent}/>
 
 				</div>
 		</Router>
+		</UserContext.Provider>
 	);
 }
 

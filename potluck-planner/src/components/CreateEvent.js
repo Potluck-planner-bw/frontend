@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import '../styles/CreateEvent.css';
 import axiosWithAuth from '../utils/axiosWithAuth'
-import {useParams} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 
 
 const initialValues = {
@@ -12,6 +12,7 @@ const initialValues = {
 	dates: '',
 	guests: '',
 	description: '',
+	foods: '',
 	created: '',
 	users_id: ''
 }
@@ -28,10 +29,15 @@ const initialValues = {
 // 	"users_id": 2
 // }
 
-const CreateEvent = () => {
+const CreateEvent = (props) => {
 	const [values, setValues] = useState(initialValues)
-	const params = useParams()
+	const [userID, setUserID] = useState(null)
+	const {push} = useHistory()
 
+	useEffect(() => {
+		setUserID(localStorage.getItem('userID'))
+		console.log(userID)
+	}, [])
 
 	const handleChange = (event) => {
 		setValues({
@@ -47,10 +53,11 @@ const CreateEvent = () => {
 			"time": values.time,
 			"address": values.address,
 			"dates": values.dates,
-			"guests": values.guests,
+			"guests": values.guests.split(','),
+			// 'foods': values.foods.split(','),
 			"description": values.description,
 			"created": 1,
-			"users_id": 4
+			"users_id": userID
 		}
 
 		axiosWithAuth()
@@ -66,12 +73,11 @@ const CreateEvent = () => {
 
 				// push(`/dashboard/${userID[0].id}`);
 				console.log(res)
-				
+				push(`/dashboard/4`)
 			})
 			.catch(err => {
 				console.log(err);
 				console.log(newEvent)
-
 			});
 	};
 
@@ -134,6 +140,13 @@ const CreateEvent = () => {
 					name='guests'
 					className='eventDescription'
 					placeholder='enter guest usernames with a comma (,) between each (i.e Jake,TJ,Cory)'
+					onChange={handleChange}
+				/>			
+				<input
+					type='text'
+					name='foods'
+					className='eventDescription'
+					placeholder='enter foods with a comma (,) between each (i.e chip,dressing,steak)'
 					onChange={handleChange}
 				/>			
 				<button className='form-bordered-btn'>create event</button>
