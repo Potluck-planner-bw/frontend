@@ -11,4 +11,8 @@ const axiosWithAuth = () => {
 	});
 };
 
+<<<<<<< HEAD
 export default axiosWithAuth;
+=======
+export default axiosWithAuth;
+>>>>>>> f1e50d7574287a0f058233b977e050f43136b2ff
