@@ -1,6 +1,7 @@
 import axiosWithAuth from '../utils/axiosWithAuth'
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
+import EventCard from './EventCard'
 
 // components
 import Header from './Header';
@@ -35,7 +36,28 @@ const Dashboard = (props) => {
     return (
         <>
         <Header />
-        <div>Hello</div>
+        <div className='dashboard'>
+        <div className='dashboard-column'>
+            <h2>My Events</h2>
+            {userInfo.events === true && 
+                userInfo.events.filter(event => {
+                    return event.id === userInfo.id
+                }).map(item => {
+                    return <EventCard key={item.title} event={item} /> 
+                })
+            }
+        </div>
+        <div className='dashboard-column'>
+            <h2>Joined Events</h2>
+            {userInfo.events === true &&
+                userInfo.events.filter(event => {
+                    return event.id !== userInfo.id
+                }).map(item => {
+                    return <EventCard key={item.title} event={item} /> 
+                })
+            }
+        </div>
+    </div>
         </>
     )
 }

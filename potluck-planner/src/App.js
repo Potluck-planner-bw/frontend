@@ -11,7 +11,6 @@ import Dashboard from './components/Dashboard';
 import EventPage from './components/EventPage';
 import TestLogin from './components/TestLogin';
 import SignUp from './components/SignUp';
-import Profile from './components/Profile';
 
 function App() {
 
@@ -31,7 +30,6 @@ function App() {
 					<Route exact path='/about' component={About} />
 					<Route exact path='/' component={Landing} />
 					<Route exact path='/sign-up' component={SignUp} />
-					<Route exact path='/profile/:id' component={Profile} />
 
 				</div>
 		</Router>
