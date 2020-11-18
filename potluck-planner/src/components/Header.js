@@ -5,9 +5,11 @@ import '../styles/header.css';
 
 const initialValue = false;
 
-const Header = () => {
+const Header = (props) => {
+	const {userInfo} = props
+
 	const { push } = useHistory();
-	// const [isLoggedIn, setIsLoggedIn] = useState(initialValue);
+
 	console.log('token', localStorage.getItem('token'));
 
 	const handleLogOut = () => {
@@ -38,7 +40,7 @@ const Header = () => {
 					<h1>&#123;evnt&#125;</h1>
 				</Link>
 				<nav>
-					<Link to='/create-event' className='bordered-btn'>
+					<Link to={`/create-event`} className='bordered-btn'>
 						create event
 					</Link>
 					<Link to='/join-event' className='bordered-btn'>

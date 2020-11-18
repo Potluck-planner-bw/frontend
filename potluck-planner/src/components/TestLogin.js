@@ -43,6 +43,9 @@ const TestLogin = () => {
 					return user.username === credentials.username
 				})
 
+				localStorage.setItem('userID', JSON.stringify(userID[0].id))
+				localStorage.setItem('username', JSON.stringify(userID[0].username))
+
 				push(`/dashboard/${userID[0].id}`);
 			})
 			.catch(err => {

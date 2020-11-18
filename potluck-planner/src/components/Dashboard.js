@@ -10,11 +10,13 @@ import Header from './Header';
 const initialCredentials = {
 	id: '',
 	username: '',
-	password: '',
+    password: '',
+    events: []
 };
 
 const Dashboard = (props) => {
     const [userInfo, setUserInfo] = useState(initialCredentials);
+    const [events, setEvents] = useState([])
     const params = useParams()
     
 	const getUserInfo = () => {
@@ -27,35 +29,48 @@ const Dashboard = (props) => {
 			.catch((err) => {
 				console.log(err);
 			});
-	};
+    };
+    
+    const getEvents = () => {
+        axiosWithAuth()
+        .get(`/events`)
+        .then(res => {
+            console.log(res)
+            setEvents(res.data)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
 
 	useEffect(() => {
         getUserInfo()
+        getEvents()
     }, []);
+
 
     return (
         <>
-        <Header />
+        <Header userInfo={userInfo} />
         <div className='dashboard'>
         <div className='dashboard-column'>
             <h2>My Events</h2>
-            {userInfo.events === true && 
-                userInfo.events.filter(event => {
-                    return event.id === userInfo.id
-                }).map(item => {
-                    return <EventCard key={item.title} event={item} /> 
-                })
-            }
+            {events.filter(event => {
+              return event.users_id === userInfo.id 
+            }).map(item => {
+                return <EventCard key={item.title} event={item} /> 
+            })}
         </div>
         <div className='dashboard-column'>
-            <h2>Joined Events</h2>
-            {userInfo.events === true &&
-                userInfo.events.filter(event => {
-                    return event.id !== userInfo.id
-                }).map(item => {
-                    return <EventCard key={item.title} event={item} /> 
-                })
-            }
+            <h2>Attending Events</h2>
+            {events.filter(event => {
+              return event.users_id !== userInfo.id 
+            }).filter(ev => {
+                {/* console.log(userInfo) */}
+                return (ev.guests.split(',').includes(userInfo.username))
+            }).map(item => {
+                return <EventCard key={item.title} event={item} /> 
+            })}
         </div>
     </div>
         </>
