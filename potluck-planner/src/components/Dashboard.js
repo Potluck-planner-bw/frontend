@@ -63,11 +63,9 @@ const Dashboard = (props) => {
         </div>
         <div className='dashboard-column'>
             <h2>Attending Events</h2>
-            {events.filter(event => {
-              return event.users_id !== userInfo.id 
-            }).filter(ev => {
+            {events.filter(gitev => {
                 {/* console.log(userInfo) */}
-                return (ev.guests.split(',').includes(userInfo.username))
+                return (ev.guests.split(', ').includes(userInfo.username))
             }).map(item => {
                 return <EventCard key={item.title} event={item} /> 
             })}
