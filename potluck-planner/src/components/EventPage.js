@@ -7,6 +7,8 @@ const EventPage = props => {
     const params = useParams()
     const { push } = useHistory()
     const [event, setEvent] = useState([])
+    const [itemList, setItemList] = useState([])
+    const [guestList, setGuestList] = useState([])
 
     const fetchEvent = (id) => {
         axiosWithAuth()
@@ -14,6 +16,8 @@ const EventPage = props => {
             .then(res => {
                 console.log(res)
                 setEvent(res.data[0])
+                setItemList(res.data[0].items.split(', '))
+                setGuestList(res.data[0].guests.split(', '))
             })
             .catch(err => {
                 console.log(err)
@@ -47,7 +51,7 @@ const EventPage = props => {
                 </div>
                 <div>
                     <ul>
-                    {event.items.split(', ').map(item => {
+                    {itemList.map(item => {
                         return <li>{item}</li>
                     })}
                     </ul>
@@ -56,7 +60,7 @@ const EventPage = props => {
             <div className='event-page-column'>
                 <h3>Guests</h3>
                 <ul>
-                {event.guests.split(', ').map(item => {
+                {guestList.map(item => {
                         return <li>{item}</li>
                     })}
                 </ul>
