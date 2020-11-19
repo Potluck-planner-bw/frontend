@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosWithAuth from '../utils/axiosWithAuth'
 import { useHistory, useParams } from "react-router-dom";
-import EditableLabel from 'react-inline-editing';
+import Item from '../Item';
 
 const EventPage = props => {
     const [userInfo, setUserInfo] = useState([])
@@ -12,6 +12,7 @@ const EventPage = props => {
     const [guestList, setGuestList] = useState([])
     const [yesList, setYesList] = useState([])
     const [noList, setNoList] = useState([])
+    const [editingItem, setEditingItem] = useState('')
 
     const getUserInfo = () => {
         axiosWithAuth()
@@ -85,8 +86,28 @@ const EventPage = props => {
     }
 
     const onChangeHandler = (e) => {
-        setItemList(...itemList,
-            )
+        console.log(e.target.value)
+        console.log(e)
+        setEditingItem(e.target.value)
+        const newItemList = itemList
+        newItemList[e.target.name] = editingItem
+        setItemList(newItemList)
+
+        setEvent({
+            ...event,
+            items: itemList.join('')
+        })
+
+        axiosWithAuth()
+        .put(`/events/${event.id}`, event)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+
     }
 
     return (
@@ -101,7 +122,23 @@ const EventPage = props => {
                 <div>
                 <h3>Items</h3>
                     {itemList.map((item, index) => {
-                        return <EditableLabel onChange={onChangeHandler} text={`${item}`} key={item.index} />
+                        return (
+                            <Item 
+                            type='input' 
+                            placeholder='Add a name' 
+                            text={`${item}`} 
+                            key={index}
+                            id={index}
+                             > 
+                            <input 
+                                type="text"
+                                name={index}
+                                placeholder="Add a name"
+                                value={editingItem}
+                                onChange={onChangeHandler}
+                            />
+                            </Item>
+                        ) 
                     })}
                 </div>
             </div>
