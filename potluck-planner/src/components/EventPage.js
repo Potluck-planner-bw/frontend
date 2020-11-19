@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosWithAuth from '../utils/axiosWithAuth'
 import { useHistory, useParams } from "react-router-dom";
+import EditableLabel from 'react-inline-editing';
 
 const EventPage = props => {
     const [userInfo, setUserInfo] = useState([])
@@ -83,6 +84,11 @@ const EventPage = props => {
         }
     }
 
+    const onChangeHandler = (e) => {
+        setItemList(...itemList,
+            )
+    }
+
     return (
         <div className='event-page'>
             <div className='event-page-column'>
@@ -94,11 +100,9 @@ const EventPage = props => {
                 </div>
                 <div>
                 <h3>Items</h3>
-                    <ul>
-                    {itemList.map(item => {
-                        return <li key={item.id}>{item}</li>
+                    {itemList.map((item, index) => {
+                        return <EditableLabel onChange={onChangeHandler} text={`${item}`} key={item.index} />
                     })}
-                    </ul>
                 </div>
             </div>
             <div className='event-page-column'>
