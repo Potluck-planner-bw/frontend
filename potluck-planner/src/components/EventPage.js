@@ -6,24 +6,19 @@ import { useHistory, useParams } from "react-router-dom";
 
 
 const EventPage = props => {
-    // const {userInfo, setUserInfo} = props
-    // const [user, setUser] = useState(null)
-
     // food state
     const [food, setFood] = useState('')
 
     const params = useParams()
     const { push } = useHistory()
-
-    // API context
-    // const [userInfo, setUserInfo] = useState(user)
-    const [event, setEvent] = useState(null)
+    const [event, setEvent] = useState([])
 
     const fetchEvent = (id) => {
-        axiosWithAuth().get(`/events/${id}`)
+        axiosWithAuth()
+        .get(`/events/${id}`)
             .then(res => {
                 console.log(res)
-                setEvent(res.data)
+                setEvent(res.data[0])
             })
             .catch(err => {
                 console.log(err)
@@ -47,9 +42,10 @@ const EventPage = props => {
             <h2 className='event-page-title'></h2>
             <div className='event-page-column'>
                 <div>
-                    <h3></h3>
-                    <p></p>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+                    <h2>{event.event_name}</h2>
+                    <h3>{event.dates} @ {event.time}</h3>
+                    <p>{event.address}</p>
+                    <p>{event.description}</p>
                 </div>
                 <div>
                 <form onSubmit={addFood}>
@@ -57,11 +53,9 @@ const EventPage = props => {
                     <button>add new item</button>
                 </form>
                     <ul>
-                    {/* map out foods here from state; currently these are placeholders */}
-                    {}
-                        <li>Food 1</li>
-                        <li>Food 2</li>
-                        <li>Food 3</li>
+                    {/* {event.items.split(', ').map(item => {
+                        return <li>{item}</li> 
+                    })} */}
                     </ul>
                 </div>
             </div>
