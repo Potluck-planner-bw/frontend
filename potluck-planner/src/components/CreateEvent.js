@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import '../styles/CreateEvent.css';
 import axiosWithAuth from '../utils/axiosWithAuth';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 const initialValues = {
 	event_name: '',
@@ -72,7 +72,7 @@ const CreateEvent = (props) => {
 
 				// push(`/dashboard/${userID[0].id}`);
 				console.log(res);
-				push(`/dashboard/4`);
+				push(`/dashboard/${localStorage.getItem('userID')}`);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -158,15 +158,13 @@ const CreateEvent = (props) => {
 					placeholder='enter foods with a comma (,) between each (i.e chip,dressing,steak)'
 					onChange={handleChange}
 				/>
-				<button type='submit' className='form-bordered-btn'>
-					create event
-				</button>
-				<button
-					onClick={push(`/dashboard/${localStorage.getItem('userID')}`)}
+				<button className='form-bordered-btn'>create event</button>
+				<Link
+					to={`/dashboard/${localStorage.getItem('userID')}`}
 					className='form-bordered-btn'
 				>
 					cancel
-				</button>
+				</Link>
 			</form>
 		</>
 	);

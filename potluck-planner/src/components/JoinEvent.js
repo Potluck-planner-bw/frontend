@@ -1,53 +1,53 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import '../styles/CreateEvent.css';
 import axiosWithAuth from '../utils/axiosWithAuth';
-import {useHistory} from 'react-router-dom'
-
+import { Link, useHistory } from 'react-router-dom';
 
 const JoinEvent = () => {
-	const [userID, setUserID] = useState('')
-	const [event, setEvent] = useState([])
-	const { push } = useHistory()
+	const [userID, setUserID] = useState('');
+	const [event, setEvent] = useState([]);
+	const { push } = useHistory();
 
-	const onChange = e => {
-		setUserID(e.target.value)
-	}
+	const onChange = (e) => {
+		setUserID(e.target.value);
+	};
 
 	const handleSubmit = (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
 		axiosWithAuth()
-        .get(`/events/${userID}`)
-        .then(res => {
-            console.log(res)
-			setEvent(res.data[0])
-			let guestList = res.data[0].guests
-			guestList += `, ${localStorage.getItem('username')}`
-			console.log('guest list', guestList)
-			setEvent({
-				...event,
-				guests: guestList
+			.get(`/events/${userID}`)
+			.then((res) => {
+				console.log(res);
+				setEvent(res.data[0]);
+				let guestList = res.data[0].guests;
+				guestList += `, ${localStorage.getItem('username')}`;
+				console.log('guest list', guestList);
+				setEvent({
+					...event,
+					guests: guestList,
+				});
 			})
-        })
-        .catch((err) => {
-            console.log(err);
-		});
+			.catch((err) => {
+				console.log(err);
+			});
 
 		axiosWithAuth()
-		.put(`/events/${userID}`, event)
-		.then(res => {
-			console.log(res)
-			push(`/dashboard/${localStorage.getItem('userID')}`)
-		})
-		.catch(err => {
-			console.log(err)
-		})
-	}
+			.put(`/events/${userID}`, event)
+			.then((res) => {
+				console.log(res);
+				push(`/dashboard/${localStorage.getItem('userID')}`);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<>
 			<Header />
 			<h2>join an event</h2>
+			<p>enter an event id to add the event to your dashboard</p>
 			<form onSubmit={handleSubmit}>
 				<input
 					type='text'
@@ -57,7 +57,13 @@ const JoinEvent = () => {
 					value={userID}
 					onChange={onChange}
 				/>
-				<button>join</button>
+				<button className='form-bordered-btn'>join</button>
+				<Link
+					to={`/dashboard/${localStorage.getItem('userID')}`}
+					className='form-bordered-btn'
+				>
+					cancel
+				</Link>
 			</form>
 		</>
 	);
