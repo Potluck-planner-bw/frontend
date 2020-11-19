@@ -66,6 +66,7 @@ const EventPage = props => {
                         return <li key={item.id}>{item}</li>
                     })}
                 </ul>
+                <button onClick={() => {push(`/edit-event/${event.id}`)}}>Edit</button>
                 {event.users_id == localStorage.getItem('userID') && <button onClick={deleteHandler}>Delete Event</button>}
             </div>    
         </div>

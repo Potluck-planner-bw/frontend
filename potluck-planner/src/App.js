@@ -12,6 +12,7 @@ import TestLogin from './components/TestLogin';
 import SignUp from './components/SignUp';
 import CreateEvent from './components/CreateEvent';
 import JoinEvent from './components/JoinEvent';
+import EditForm from './components/EditForm';
 
 
 
@@ -40,6 +41,10 @@ function App() {
 					<Route exact path='/create-event' render={(props) => <CreateEvent {...props} /> }  />
 
 					<Route exact path ='/join-event' component={JoinEvent}/>
+
+					<Route path='/edit-event/:id' render={props => (
+						<EditForm {...props} />
+					)} />
 
 				</div>
 		</Router>
