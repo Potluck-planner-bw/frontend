@@ -50,9 +50,10 @@ const EventPage = props => {
                     <p>{event.description}</p>
                 </div>
                 <div>
+                <h3>Items</h3>
                     <ul>
                     {itemList.map(item => {
-                        return <li>{item}</li>
+                        return <li key={item.id}>{item}</li>
                     })}
                     </ul>
                 </div>
@@ -61,7 +62,7 @@ const EventPage = props => {
                 <h3>Guests</h3>
                 <ul>
                 {guestList.map(item => {
-                        return <li>{item}</li>
+                        return <li key={item.id}>{item}</li>
                     })}
                 </ul>
                 {event.users_id === params.id && <button onClick={deleteHandler}>Delete Event</button>}
