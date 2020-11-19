@@ -6,7 +6,7 @@ import '../styles/header.css';
 const initialValue = false;
 
 const Header = (props) => {
-	const {userInfo} = props
+	const { userInfo } = props;
 
 	const { push } = useHistory();
 
@@ -14,6 +14,8 @@ const Header = (props) => {
 
 	const handleLogOut = () => {
 		localStorage.removeItem('token');
+		localStorage.removeItem('userID');
+		localStorage.removeItem('username');
 		push(`/`);
 	};
 
@@ -36,7 +38,7 @@ const Header = (props) => {
 	} else {
 		return (
 			<header>
-				<Link to='/'>
+				<Link to={`/dashboard/${localStorage.getItem('userID')}`}>
 					<h1>&#123;evnt&#125;</h1>
 				</Link>
 				<nav>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -12,12 +11,12 @@ const initialCredentials = {
 	password: '',
 };
 
-const initialUsers = []
+const initialUsers = [];
 
 const TestLogin = () => {
 	const { push } = useHistory();
 	const [credentials, setCredentials] = useState(initialCredentials);
-	const [users, setUsers] = useState(initialUsers)
+	const [users, setUsers] = useState(initialUsers);
 	// console.log('credentials', credentials);
 
 	const handleChange = (event) => {
@@ -39,41 +38,39 @@ const TestLogin = () => {
 				console.log('res.data.token', res.data.token);
 				localStorage.setItem('token', res.data.token);
 
-				const userID = users.filter(user => {
-					return user.username === credentials.username
-				})
+				const userID = users.filter((user) => {
+					return user.username === credentials.username;
+				});
 
-				localStorage.setItem('userID', JSON.stringify(userID[0].id))
-				localStorage.setItem('username', (userID[0].username))
+				localStorage.setItem('userID', JSON.stringify(userID[0].id));
+				localStorage.setItem('username', userID[0].username);
 
 				push(`/dashboard/${userID[0].id}`);
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log(err);
 			});
 	};
 
 	const getUserInfo = () => {
-        axiosWithAuth()
-        .get('/users')
-            .then(res => {
-				console.log(res)
-				setUsers(res.data)
-                // }) 
-            })
+		axiosWithAuth()
+			.get('/users')
+			.then((res) => {
+				console.log(res);
+				setUsers(res.data);
+				// })
+			});
 	};
 
 	useEffect(() => {
-        getUserInfo()
-    }, []);
+		getUserInfo();
+	}, []);
 
 	return (
 		<>
 			<Header />
 			<form onSubmit={handleSubmit}>
 				<h2>test login</h2>
-				<p>username: User1</p>
-				<p>password: password</p>
 				<input
 					type='text'
 					name='username'
@@ -88,7 +85,7 @@ const TestLogin = () => {
 					value={credentials.password}
 					onChange={handleChange}
 				/>
-				<button>login</button>
+				<button className='bordered-btn'>login</button>
 			</form>
 		</>
 	);
