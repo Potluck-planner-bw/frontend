@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import Guest from './Guest'
+import axiosWithAuth from '../utils/axiosWithAuth'
 
 const EventCard = props => {
     const {event} = props
@@ -24,7 +24,6 @@ const EventCard = props => {
             <p>Description: {event.description}</p>
             <Link to={`/events/${event.id}`}>see people and details >></Link>    
         </div>
-
         </div>
     )
 }

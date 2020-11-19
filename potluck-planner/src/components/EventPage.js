@@ -18,6 +18,7 @@ const EventPage = props => {
                 setEvent(res.data[0])
                 setItemList(res.data[0].items.split(', '))
                 setGuestList(res.data[0].guests.split(', '))
+                console.log(params.id)
             })
             .catch(err => {
                 console.log(err)
@@ -28,12 +29,12 @@ const EventPage = props => {
         fetchEvent(params.id)
     }, [])
 
-    const deleteHandler = e => {
+    const deleteHandler = () => {
         axiosWithAuth()
         .delete(`/events/${event.id}`)
         .then(res => {
             console.log(res)
-            push(`/dashboard/${params.id}`)
+            push(`/dashboard/${localStorage.getItem('userID')}`)
         })
         .catch(err => {
             console.log(err)
@@ -65,7 +66,7 @@ const EventPage = props => {
                         return <li key={item.id}>{item}</li>
                     })}
                 </ul>
-                {event.users_id === params.id && <button onClick={deleteHandler}>Delete Event</button>}
+                {event.users_id == localStorage.getItem('userID') && <button onClick={deleteHandler}>Delete Event</button>}
             </div>    
         </div>
     )
