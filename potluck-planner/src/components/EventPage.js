@@ -3,12 +3,26 @@ import axiosWithAuth from '../utils/axiosWithAuth'
 import { useHistory, useParams } from "react-router-dom";
 
 const EventPage = props => {
-
+    const [userInfo, setUserInfo] = useState([])
     const params = useParams()
     const { push } = useHistory()
     const [event, setEvent] = useState([])
     const [itemList, setItemList] = useState([])
     const [guestList, setGuestList] = useState([])
+    const [yesList, setYesList] = useState([])
+    const [noList, setNoList] = useState([])
+
+    const getUserInfo = () => {
+        axiosWithAuth()
+        .get(`/users/${localStorage.getItem('userID')}`)
+        .then(res => {
+            console.log(res)
+            setUserInfo(res.data[0])
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     const fetchEvent = (id) => {
         axiosWithAuth()
@@ -26,8 +40,13 @@ const EventPage = props => {
     }
 
     useEffect(() => {
+        getUserInfo()
         fetchEvent(params.id)
     }, [])
+
+    useEffect(() => {
+
+    }, [yesList, noList])
 
     const deleteHandler = () => {
         axiosWithAuth()
@@ -39,6 +58,29 @@ const EventPage = props => {
         .catch(err => {
             console.log(err)
         })
+    }
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+        console.log(e)
+
+    }
+
+    const radioHandler = (e) => {
+        console.log(e)
+        if (e.target.value === 'yes' && !yesList.includes(userInfo.username)) {
+            let newYesList = yesList
+            newYesList.push(userInfo.username)
+            setYesList(newYesList)
+
+            
+        } else if (e.target.value === 'no' && !noList.includes(userInfo.username)) {
+            let newNoList = noList
+            newNoList.push(userInfo.username)
+            setNoList(newNoList)
+        } else {
+            return null
+        }
     }
 
     return (
@@ -66,50 +108,54 @@ const EventPage = props => {
                         return <li key={item.id}>{item}</li>
                     })}
                 </ul>
-                <button onClick={() => {push(`/edit-event/${event.id}`)}}>Edit</button>
+                {event.users_id == localStorage.getItem('userID') && <button onClick={() => {push(`/edit-event/${event.id}`)}}>Edit</button>}
                 {event.users_id == localStorage.getItem('userID') && <button onClick={deleteHandler}>Delete Event</button>}
-            </div>    
+            </div>
+            <h3>Going?</h3>
+            <form onSubmit={submitHandler}>
+                <label>Yes
+                <input
+                    type='radio'
+                    id='yes'
+                    name='isGoing'
+                    value='yes'
+                    onChange={radioHandler}
+                    />
+                </label>
+                <label>No
+                <input
+                    type='radio'
+                    id='no'
+                    name='isGoing'
+                    value='no'
+                    onChange={radioHandler}
+                    />
+                </label>
+                <button type='submit'>Submit</button>
+            </form>
+            
+                <div className='column-names'>
+                <div className='yes-column'>
+                    <p>Yes</p>
+                    <ul>
+                    {yesList.map((guest, index) => {
+                        return <li key={index}>{guest}</li>
+                    })}
+                    </ul>
+                </div>
+                <div>
+                <p>No</p>
+                <ul className='no-column'>
+                {noList.map((guest, index) => {
+                        return <li key={index}>{guest}</li>
+                    })}
+                </ul>
+                </div>
+                </div>    
         </div>
     )
 }
 
 export default EventPage
 
-// Yes or no lists with select buttons
 
-// <label>Yes
-// <input
-//     type='radio'
-//     id='yes'
-//     name='isGoing'
-//     value='yes'
-//     />
-// </label>
-// <label>No
-// <input
-//     type='radio'
-//     id='no'
-//     name='isGoing'
-//     value='no'
-//     />
-// </label>
-// <div className='column-names'>
-// <div className='yes-column'>
-//     <p>Yes</p>
-//     <ul>
-//         <li>Alden</li>
-//         <li>Tj</li>
-//         <li>Jake</li>
-//         <li>Cody</li>
-//     </ul>
-// </div>
-// <div>
-// <p>No</p>
-// <ul className='no-column'>
-//     <li>John</li>
-//     <li>Tom</li>
-//     <li>Dan</li>
-//     <li>Jessie</li>
-// </ul>
-// </div>
-// </div>

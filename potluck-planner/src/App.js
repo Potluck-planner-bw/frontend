@@ -45,7 +45,6 @@ function App() {
 					<Route path='/edit-event/:id' render={props => (
 						<EditForm {...props} />
 					)} />
-
 				</div>
 		</Router>
 	);
