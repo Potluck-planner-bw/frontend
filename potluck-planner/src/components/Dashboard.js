@@ -63,7 +63,7 @@ const Dashboard = (props) => {
         </div>
         <div className='dashboard-column'>
             <h2>Attending Events</h2>
-            {events.filter(gitev => {
+            {events.filter(ev => {
                 {/* console.log(userInfo) */}
                 return (ev.guests.split(', ').includes(userInfo.username))
             }).map(item => {

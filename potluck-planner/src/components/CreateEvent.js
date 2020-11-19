@@ -12,7 +12,7 @@ const initialValues = {
 	dates: '',
 	guests: '',
 	description: '',
-	foods: '',
+	items: '',
 	created: '',
 	users_id: ''
 }
@@ -53,8 +53,8 @@ const CreateEvent = (props) => {
 			"time": values.time,
 			"address": values.address,
 			"dates": values.dates,
-			"guests": values.guests.split(','),
-			// 'foods': values.foods.split(','),
+			"guests": values.guests,
+			'items': values.foods,
 			"description": values.description,
 			"created": 1,
 			"users_id": userID
@@ -139,14 +139,14 @@ const CreateEvent = (props) => {
 					type='text'
 					name='guests'
 					className='eventDescription'
-					placeholder='enter guest usernames with a comma (,) between each (i.e Jake,TJ,Cory)'
+					placeholder='enter guest usernames with a comma and space (, ) between each (i.e Jake, TJ, Cory)'
 					onChange={handleChange}
 				/>			
 				<input
 					type='text'
 					name='foods'
 					className='eventDescription'
-					placeholder='enter foods with a comma (,) between each (i.e chip,dressing,steak)'
+					placeholder='enter foods with a comma and space (, ) between each food (i.e chip, dressing, steak)'
 					onChange={handleChange}
 				/>			
 				<button className='form-bordered-btn'>create event</button>
