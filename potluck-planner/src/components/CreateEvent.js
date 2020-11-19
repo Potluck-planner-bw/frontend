@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import '../styles/CreateEvent.css';
-import axiosWithAuth from '../utils/axiosWithAuth'
-import {useHistory, useParams} from 'react-router-dom'
-
+import axiosWithAuth from '../utils/axiosWithAuth';
+import { useHistory, useParams } from 'react-router-dom';
 
 const initialValues = {
 	event_name: '',
@@ -14,8 +13,8 @@ const initialValues = {
 	description: '',
 	foods: '',
 	created: '',
-	users_id: ''
-}
+	users_id: '',
+};
 
 // this object worked for TJ in postman
 // {
@@ -30,14 +29,14 @@ const initialValues = {
 // }
 
 const CreateEvent = (props) => {
-	const [values, setValues] = useState(initialValues)
-	const [userID, setUserID] = useState(null)
-	const {push} = useHistory()
+	const [values, setValues] = useState(initialValues);
+	const [userID, setUserID] = useState(null);
+	const { push } = useHistory();
 
 	useEffect(() => {
-		setUserID(localStorage.getItem('userID'))
-		console.log(userID)
-	}, [])
+		setUserID(localStorage.getItem('userID'));
+		console.log(userID);
+	}, []);
 
 	const handleChange = (event) => {
 		setValues({
@@ -49,16 +48,16 @@ const CreateEvent = (props) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const newEvent = {
-			"event_name": values.event_name,
-			"time": values.time,
-			"address": values.address,
-			"dates": values.dates,
-			"guests": values.guests.split(','),
+			event_name: values.event_name,
+			time: values.time,
+			address: values.address,
+			dates: values.dates,
+			guests: values.guests.split(','),
 			// 'foods': values.foods.split(','),
-			"description": values.description,
-			"created": 1,
-			"users_id": userID
-		}
+			description: values.description,
+			created: 1,
+			users_id: userID,
+		};
 
 		axiosWithAuth()
 			.post(`/events`, newEvent)
@@ -72,12 +71,12 @@ const CreateEvent = (props) => {
 				// })
 
 				// push(`/dashboard/${userID[0].id}`);
-				console.log(res)
-				push(`/dashboard/4`)
+				console.log(res);
+				push(`/dashboard/4`);
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log(err);
-				console.log(newEvent)
+				console.log(newEvent);
 			});
 	};
 
@@ -93,9 +92,19 @@ const CreateEvent = (props) => {
 					onChange={handleChange}
 				/>
 				<div>
-					<input type='date' name='dates' className='eventDate' onChange={handleChange} />
+					<input
+						type='date'
+						name='dates'
+						className='eventDate'
+						onChange={handleChange}
+					/>
 					<span>@</span>
-					<input type='time' name='time' className='eventTime' onChange={handleChange} />
+					<input
+						type='time'
+						name='time'
+						className='eventTime'
+						onChange={handleChange}
+					/>
 				</div>
 
 				<input
@@ -141,15 +150,23 @@ const CreateEvent = (props) => {
 					className='eventDescription'
 					placeholder='enter guest usernames with a comma (,) between each (i.e Jake,TJ,Cory)'
 					onChange={handleChange}
-				/>			
+				/>
 				<input
 					type='text'
 					name='foods'
 					className='eventDescription'
 					placeholder='enter foods with a comma (,) between each (i.e chip,dressing,steak)'
 					onChange={handleChange}
-				/>			
-				<button className='form-bordered-btn'>create event</button>
+				/>
+				<button type='submit' className='form-bordered-btn'>
+					create event
+				</button>
+				<button
+					onClick={push(`/dashboard/${localStorage.getItem('userID')}`)}
+					className='form-bordered-btn'
+				>
+					cancel
+				</button>
 			</form>
 		</>
 	);
