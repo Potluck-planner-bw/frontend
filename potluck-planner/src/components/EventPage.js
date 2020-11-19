@@ -1,13 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axiosWithAuth from '../utils/axiosWithAuth'
 import { useHistory, useParams } from "react-router-dom";
 
-// components
-
-
 const EventPage = props => {
-    // food state
-    const [food, setFood] = useState('')
 
     const params = useParams()
     const { push } = useHistory()
@@ -29,17 +24,20 @@ const EventPage = props => {
         fetchEvent(params.id)
     }, [])
 
-    const changeHandler = e => {
-        setFood(e.target.value)
-    }
-
-    const addFood = e => {
-        e.preventDefault()
+    const deleteHandler = e => {
+        axiosWithAuth()
+        .delete(`/events/${event.id}`)
+        .then(res => {
+            console.log(res)
+            push(`/dashboard/${params.id}`)
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     return (
         <div className='event-page'>
-            <h2 className='event-page-title'></h2>
             <div className='event-page-column'>
                 <div>
                     <h2>{event.event_name}</h2>
@@ -48,59 +46,63 @@ const EventPage = props => {
                     <p>{event.description}</p>
                 </div>
                 <div>
-                <form onSubmit={addFood}>
-                    <input name='food' type='text' placeholder='enter food' onChange={changeHandler}/>
-                    <button>add new item</button>
-                </form>
                     <ul>
-                    {/* {event.items.split(', ').map(item => {
-                        return <li>{item}</li> 
-                    })} */}
+                    {event.items.split(', ').map(item => {
+                        return <li>{item}</li>
+                    })}
                     </ul>
                 </div>
             </div>
             <div className='event-page-column'>
-                <h2>Going?</h2>
-                <label>Yes
-                    <input
-                        type='radio'
-                        id='yes'
-                        name='isGoing'
-                        value='yes'
-                        />
-                </label>
-                <label>No
-                    <input
-                        type='radio'
-                        id='no'
-                        name='isGoing'
-                        value='no'
-                        />
-                </label>
-                <div className='column-names'>
-                    <div className='yes-column'>
-                        <p>Yes</p>
-                        <ul>
-                            <li>Alden</li>
-                            <li>Tj</li>
-                            <li>Jake</li>
-                            <li>Cody</li>
-                        </ul>
-                    </div>
-                <div>
-                <p>No</p>
-                    <ul className='no-column'>
-                        <li>John</li>
-                        <li>Tom</li>
-                        <li>Dan</li>
-                        <li>Jessie</li>
-                    </ul>
-                </div>
-                </div>
-                <button>Delete Event</button>
+                <h3>Guests</h3>
+                <ul>
+                {event.guests.split(', ').map(item => {
+                        return <li>{item}</li>
+                    })}
+                </ul>
+                {event.users_id === params.id && <button onClick={deleteHandler}>Delete Event</button>}
             </div>    
         </div>
     )
 }
 
 export default EventPage
+
+// Yes or no lists with select buttons
+
+// <label>Yes
+// <input
+//     type='radio'
+//     id='yes'
+//     name='isGoing'
+//     value='yes'
+//     />
+// </label>
+// <label>No
+// <input
+//     type='radio'
+//     id='no'
+//     name='isGoing'
+//     value='no'
+//     />
+// </label>
+// <div className='column-names'>
+// <div className='yes-column'>
+//     <p>Yes</p>
+//     <ul>
+//         <li>Alden</li>
+//         <li>Tj</li>
+//         <li>Jake</li>
+//         <li>Cody</li>
+//     </ul>
+// </div>
+// <div>
+// <p>No</p>
+// <ul className='no-column'>
+//     <li>John</li>
+//     <li>Tom</li>
+//     <li>Dan</li>
+//     <li>Jessie</li>
+// </ul>
+// </div>
+// </div>
