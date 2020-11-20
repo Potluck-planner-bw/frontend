@@ -13,7 +13,8 @@ const EventPage = (props) => {
 	const [guestList, setGuestList] = useState([]);
 	const [yesList, setYesList] = useState([]);
 	const [noList, setNoList] = useState([]);
-	const [editingItem, setEditingItem] = useState('');
+    const [editingItem, setEditingItem] = useState('');
+    const [buttonClicked, setButtonClicked] = useState(false)
 
 	const getUserInfo = () => {
 		axiosWithAuth()
@@ -127,20 +128,28 @@ const EventPage = (props) => {
 			setEvent({
 				...event,
 				// yesList: event.yesList + `, ${userInfo.username}`,
-				yesList: yesArray,
+				yesList: event.yesList + ', ' + yesArray,
 			});
 		}
 		if (event.noList.includes(userInfo.username)) {
-			// if noList includes username, remove username from noList
+            // if noList includes username, remove username from noList
+            let noArray = [];
+			if (noArray.length === 0) {
+				noArray.push(userInfo.username);
+				noArray.join('');
+			} else {
+				// noArray = event.yesList.split(', ')
+				noArray.push(userInfo.username);
+				noArray.join(', ');
+			}
 			setEvent({
-				...event,
-				noList: event.noList.replace(`${userInfo.username}, `, ''),
+                ...event,
+                noList: noArray
+				// noList: event.noList.replace(`${userInfo.username}, `, ''),
 				// noList: '
 			});
 		}
-		// "{"id":1,"event_name":"Fairmount Park Meet-Up","time":"12:00pm","address":"Reservoir Dr, Philadelphia, PA 19119","dates":"11-20-20","guests":"TJ, Alden, Jake, Cory, jake100","description":"Fairmount Park is the largest municipal park in Philadelphia","items":"Computer, TV, Salad","yesList":"","noList":"","created":1,"users_id":1}"
-		// "{"id":1,"event_name":"Fairmount Park Meet-Up","time":"12:00pm","address":"Reservoir Dr, Philadelphia, PA 19119","dates":"11-20-20","guests":"TJ, Alden, Jake, Cory, jake100","description":"Fairmount Park is the largest municipal park in Philadelphia","items":"Computer, TV, Salad","yesList":["jake100"],"noList":"","created":1,"users_id":1}"
-		// "{"id":1,"event_name":"Fairmount Park Meet-Up","time":"12:00pm","address":"Reservoir Dr, Philadelphia, PA 19119","dates":"11-20-20","guests":"TJ, Alden, Jake, Cory, jake100","description":"Fairmount Park is the largest municipal park in Philadelphia","items":"Computer, TV, Salad","yesList":"jake100","noList":"","created":1,"users_id":1}"
+
 		axiosWithAuth()
 			.put(`/events/${event.id}`, event)
 			.then((res) => console.log(res))
@@ -155,8 +164,47 @@ const EventPage = (props) => {
 		console.log('no clicked');
 		// if noList includes username do nothing
 		// if noList does not include username, add username to noList
-		// if yesList includes username, remove username from yesList
-	};
+        // if yesList includes username, remove username from yesList
+        if (event.noList.includes(userInfo.username)) {
+		} else if (!event.noList.includes(userInfo.username)) {
+			let noArray = [];
+			if (noArray.length === 0) {
+				noArray.push(userInfo.username);
+				noArray.join('');
+			} else {
+				// noArray = event.yesList.split(', ')
+				noArray.push(userInfo.username);
+				noArray.join(', ');
+			}
+			setEvent({
+				...event,
+				// yesList: event.yesList + `, ${userInfo.username}`,
+				noList: event.noList + ', ' + noArray,
+			});
+		}
+		if (event.yesList.includes(userInfo.username)) {
+            let yesArray = []
+            if (event.yesList.length === 1) {
+                yesArray = event.yesList.split('')
+            } else {
+
+            }
+			setEvent({
+                ...event,
+                yesList: yesArray
+				// noList: event.noList.replace(`${userInfo.username}, `, ''),
+				// noList: '
+			});
+		}
+		axiosWithAuth()
+			.put(`/events/${event.id}`, event)
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
+    };
+    
+    const removeButtons = e => {
+        setButtonClicked(true)
+    }
 
 	return (
 		<div className='event-page'>
@@ -215,15 +263,29 @@ const EventPage = (props) => {
 				)}
 			</div>
 			<h2>Going?</h2>
-			<button onClick={yesClicked}>yes</button>
-			<button onClick={noClicked}>no</button>
+            <div onDoubleClick={removeButtons} className={buttonClicked ? `removeButtons` : '' }>
+                <button onClick={yesClicked}>yes</button>
+                <button onClick={noClicked}>no</button>
+            </div>
 
 			<h3>invited</h3>
 			{guestList.map((item) => {
 				return <p key={item.id}>{item}</p>;
 			})}
 			<h3>yes</h3>
+            <p>{event.yesList}</p>
+            {/* {event.yesList.split(', ').length > 1 ? event.yesList.split(', ').map(item => {
+                return <p>{item}</p>
+            }) : 
+            event.yesList.split('').map(item => {
+                return <p>{item}</p>
+            })
+            } */}
 			<h3>no</h3>
+            <p>{event.noList}</p>
+            {/* {event.noList.split(', ').map(item => {
+                return <p>{item}</p>
+            })} */}
 		</div>
 	);
 };
