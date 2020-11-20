@@ -1,54 +1,53 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .dashboard {
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin: 0 auto;
 }
 
 .dashboard-column {
-  width: 40%;
+	width: 40%;
 }
 
 .event-card {
-  border: 3px solid black;
+	border: 3px solid black;
 }
 
 .event-info {
-  display: none;
+	display: none;
 }
 
 .event-card span {
-  padding: 3%;
+	padding: 3%;
 }
-
 
 /* Event Page  */
 
 .event-page {
-  display: flex;
-  flex-wrap: wrap;
-  width: 90%;
-  margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	width: 90%;
+	margin: 0 auto;
 }
 
-.event-page-title {
+/* .event-page-title {
   width: 100%;
-}
+} */
 
 .event-page-column {
-  width: 40%;
+	width: 40%;
 }
 
 .column-names {
-  display: flex;
-  justify-content: space-evenly;
+	display: flex;
+	justify-content: space-evenly;
 }
 
-.yes-column, .no-column {
-  width: 40%;
+.yes-column,
+.no-column {
+	width: 40%;
 }
-

@@ -10,7 +10,7 @@ const Header = (props) => {
 
 	const { push } = useHistory();
 
-	console.log('token', localStorage.getItem('token'));
+	// console.log('token', localStorage.getItem('token'));
 
 	const handleLogOut = () => {
 		localStorage.removeItem('token');

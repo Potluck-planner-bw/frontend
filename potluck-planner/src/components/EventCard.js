@@ -1,32 +1,34 @@
-import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
-import Guest from './Guest'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Guest from './Guest';
 
-const EventCard = props => {
-    const {event} = props
-    const [showInfo, setShowInfo] = useState(false)
+import '../styles/eventCard.css';
 
-    const toggleInfo = () => {
-        setShowInfo(!showInfo)
-    }
+const EventCard = (props) => {
+	const { event } = props;
+	const [showInfo, setShowInfo] = useState(false);
+	console.log('event', event);
 
-    return(
-        <div className='event-card'>
-        <div>
-            <span>Title: {event.event_name}</span>
-            <span>Date: {event.date}</span>
-            <span>Time: {event.time}</span>
-            <span>Location: {event.address}</span>
-            <button onClick={toggleInfo}>Click to Expand</button>
-        </div>
-        <div className={!showInfo ? 'event-info' : null }>
-            <p>{event.location}</p>
-            <p>Description: {event.description}</p>
-            <Link to={`/events/${event.id}`}>see people and details >></Link>    
-        </div>
+	const toggleInfo = () => {
+		setShowInfo(!showInfo);
+	};
 
-        </div>
-    )
-}
+	return (
+		<div className='event-card'>
+			<div className='event-info'>
+				<h3>{event.event_name}</h3>
+				<h4>{event.dates}</h4>
+				<h4>{event.time}</h4>
+				<p>{event.address}</p>
+				<button onClick={toggleInfo}>Click to Expand</button>
+			</div>
+			<div className={!showInfo ? 'event-info' : null}>
+				<p>{event.location}</p>
+				<p>Description: {event.description}</p>
+				<Link to={`/events/${event.id}`}>see people and details >></Link>
+			</div>
+		</div>
+	);
+};
 
-export default EventCard
+export default EventCard;
