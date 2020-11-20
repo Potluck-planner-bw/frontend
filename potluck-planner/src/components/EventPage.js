@@ -125,7 +125,7 @@ const EventPage = props => {
                 </div>
                 <div>
                 <h3>Items</h3>
-                <p>Add your name to each item you would like to bring then push the update items button</p>
+                <p>Add your name to each item you would like to bring then push the update items button. Make sure to type the last letter of your name twice so it does not get cut off!</p>
                     {itemList.map((item, index) => {
                         return (
                             <div>
