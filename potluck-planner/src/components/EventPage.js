@@ -102,7 +102,6 @@ const EventPage = props => {
 
     const updateItems = () => {
 
-
         axiosWithAuth()
         .put(`/events/${event.id}`, event)
         .then(res => {
@@ -126,6 +125,7 @@ const EventPage = props => {
                 </div>
                 <div>
                 <h3>Items</h3>
+                <p>Add your name to each item you would like to bring then push the update items button</p>
                     {itemList.map((item, index) => {
                         return (
                             <div>
