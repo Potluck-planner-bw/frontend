@@ -85,18 +85,23 @@ const EventPage = props => {
         }
     }
 
-    const onChangeHandler = (e) => {
-        console.log(e.target.value)
-        console.log(e)
-        setEditingItem(e.target.value)
-        const newItemList = itemList
-        newItemList[e.target.name] = editingItem
-        setItemList(newItemList)
-
+    const onChangeHandler = (value, key) => {
+        console.log(itemList)
+        const newItems = itemList.map((item, index) => {
+            if (index === key) {
+                item = value
+            }
+            return item
+        })
+        setItemList(newItems)
         setEvent({
             ...event,
-            items: itemList.join('')
+            items: itemList.join(', ')
         })
+    }
+
+    const updateItems = () => {
+
 
         axiosWithAuth()
         .put(`/events/${event.id}`, event)
@@ -106,9 +111,9 @@ const EventPage = props => {
         .catch(err => {
             console.log(err)
         })
-
-
     }
+
+
 
     return (
         <div className='event-page'>
@@ -123,23 +128,17 @@ const EventPage = props => {
                 <h3>Items</h3>
                     {itemList.map((item, index) => {
                         return (
-                            <Item 
-                            type='input' 
-                            placeholder='Add a name' 
-                            text={`${item}`} 
-                            key={index}
-                            id={index}
-                             > 
+                            <div>
                             <input 
-                                type="text"
-                                name={index}
-                                placeholder="Add a name"
-                                value={editingItem}
-                                onChange={onChangeHandler}
+                                type='text'
+                                id={index}
+                                value={item}
+                                onChange={(e) => {onChangeHandler(e.target.value, index)}}
                             />
-                            </Item>
+                            </div>
                         ) 
                     })}
+                    <button onClick={updateItems}>Update Items</button>
                 </div>
             </div>
             <div className='event-page-column'>
