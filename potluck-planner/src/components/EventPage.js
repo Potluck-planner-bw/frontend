@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosWithAuth from '../utils/axiosWithAuth'
 import { useHistory, useParams } from "react-router-dom";
+import Item from '../Item';
 
 const EventPage = props => {
     const [userInfo, setUserInfo] = useState([])
@@ -11,6 +12,7 @@ const EventPage = props => {
     const [guestList, setGuestList] = useState([])
     const [yesList, setYesList] = useState([])
     const [noList, setNoList] = useState([])
+    const [editingItem, setEditingItem] = useState('')
 
     const getUserInfo = () => {
         axiosWithAuth()
@@ -83,6 +85,35 @@ const EventPage = props => {
         }
     }
 
+    const onChangeHandler = (value, key) => {
+        console.log(itemList)
+        const newItems = itemList.map((item, index) => {
+            if (index === key) {
+                item = value
+            }
+            return item
+        })
+        setItemList(newItems)
+        setEvent({
+            ...event,
+            items: itemList.join(', ')
+        })
+    }
+
+    const updateItems = () => {
+
+        axiosWithAuth()
+        .put(`/events/${event.id}`, event)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+
+
     return (
         <div className='event-page'>
             <div className='event-page-column'>
@@ -94,11 +125,20 @@ const EventPage = props => {
                 </div>
                 <div>
                 <h3>Items</h3>
-                    <ul>
-                    {itemList.map(item => {
-                        return <li key={item.id}>{item}</li>
+                <p>Add your name to each item you would like to bring then push the update items button. Make sure to type the last letter of your name twice so it does not get cut off!</p>
+                    {itemList.map((item, index) => {
+                        return (
+                            <div>
+                            <input 
+                                type='text'
+                                id={index}
+                                value={item}
+                                onChange={(e) => {onChangeHandler(e.target.value, index)}}
+                            />
+                            </div>
+                        ) 
                     })}
-                    </ul>
+                    <button onClick={updateItems}>Update Items</button>
                 </div>
             </div>
             <div className='event-page-column'>
