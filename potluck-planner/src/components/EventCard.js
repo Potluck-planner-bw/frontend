@@ -17,7 +17,6 @@ const EventCard = props => {
             <span>Date: {event.date}</span>
             <span>Time: {event.time}</span>
             <span>Location: {event.address}</span>
-            <button onClick={toggleInfo}>Click to Expand</button>
         </div>
         <div className={!showInfo ? 'event-info' : null }>
             <p>{event.location}</p>
