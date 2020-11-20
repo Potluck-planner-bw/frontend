@@ -120,6 +120,7 @@ const EventPage = props => {
                 <div>
                     <h2>{event.event_name}</h2>
                     <h3>{event.dates} @ {event.time}</h3>
+                    <h3>event ID: {event.id}</h3>
                     <p>{event.address}</p>
                     <p>{event.description}</p>
                 </div>
