@@ -6,7 +6,7 @@ import '../styles/header.css';
 const initialValue = false;
 
 const Header = (props) => {
-	const {userInfo} = props
+	const { userInfo } = props;
 
 	const { push } = useHistory();
 

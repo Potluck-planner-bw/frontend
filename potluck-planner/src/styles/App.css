@@ -44,4 +44,6 @@ svg {
 	width: 3rem;
 }
 
-
+.removeButtons {
+	display: none;
+}
