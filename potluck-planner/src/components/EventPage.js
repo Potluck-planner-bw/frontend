@@ -13,8 +13,8 @@ const EventPage = (props) => {
 	const [guestList, setGuestList] = useState([]);
 	const [yesList, setYesList] = useState([]);
 	const [noList, setNoList] = useState([]);
-    const [editingItem, setEditingItem] = useState('');
-    const [buttonClicked, setButtonClicked] = useState(false)
+	const [editingItem, setEditingItem] = useState('');
+	const [buttonClicked, setButtonClicked] = useState(false);
 
 	const getUserInfo = () => {
 		axiosWithAuth()
@@ -132,8 +132,8 @@ const EventPage = (props) => {
 			});
 		}
 		if (event.noList.includes(userInfo.username)) {
-            // if noList includes username, remove username from noList
-            let noArray = [];
+			// if noList includes username, remove username from noList
+			let noArray = [];
 			if (noArray.length === 0) {
 				noArray.push(userInfo.username);
 				noArray.join('');
@@ -143,8 +143,8 @@ const EventPage = (props) => {
 				noArray.join(', ');
 			}
 			setEvent({
-                ...event,
-                noList: noArray
+				...event,
+				noList: noArray,
 				// noList: event.noList.replace(`${userInfo.username}, `, ''),
 				// noList: '
 			});
@@ -164,8 +164,8 @@ const EventPage = (props) => {
 		console.log('no clicked');
 		// if noList includes username do nothing
 		// if noList does not include username, add username to noList
-        // if yesList includes username, remove username from yesList
-        if (event.noList.includes(userInfo.username)) {
+		// if yesList includes username, remove username from yesList
+		if (event.noList.includes(userInfo.username)) {
 		} else if (!event.noList.includes(userInfo.username)) {
 			let noArray = [];
 			if (noArray.length === 0) {
@@ -183,15 +183,14 @@ const EventPage = (props) => {
 			});
 		}
 		if (event.yesList.includes(userInfo.username)) {
-            let yesArray = []
-            if (event.yesList.length === 1) {
-                yesArray = event.yesList.split('')
-            } else {
-
-            }
+			let yesArray = [];
+			if (event.yesList.length === 1) {
+				yesArray = event.yesList.split('');
+			} else {
+			}
 			setEvent({
-                ...event,
-                yesList: yesArray
+				...event,
+				yesList: yesArray,
 				// noList: event.noList.replace(`${userInfo.username}, `, ''),
 				// noList: '
 			});
@@ -200,11 +199,11 @@ const EventPage = (props) => {
 			.put(`/events/${event.id}`, event)
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
-    };
-    
-    const removeButtons = e => {
-        setButtonClicked(true)
-    }
+	};
+
+	const removeButtons = (e) => {
+		setButtonClicked(true);
+	};
 
 	return (
 		<div className='event-page'>
@@ -263,18 +262,21 @@ const EventPage = (props) => {
 				)}
 			</div>
 			<h2>Going?</h2>
-            <div onDoubleClick={removeButtons} className={buttonClicked ? `removeButtons` : '' }>
-                <button onClick={yesClicked}>yes</button>
-                <button onClick={noClicked}>no</button>
-            </div>
+			<div
+				onDoubleClick={removeButtons}
+				className={buttonClicked ? `removeButtons` : ''}
+			>
+				<button onClick={yesClicked}>yes</button>
+				<button onClick={noClicked}>no</button>
+			</div>
 
 			<h3>invited</h3>
 			{guestList.map((item) => {
 				return <p key={item.id}>{item}</p>;
 			})}
 			<h3>yes</h3>
-            <p>{event.yesList}</p>
-            {/* {event.yesList.split(', ').length > 1 ? event.yesList.split(', ').map(item => {
+			<p>{event.yesList}</p>
+			{/* {event.yesList.split(', ').length > 1 ? event.yesList.split(', ').map(item => {
                 return <p>{item}</p>
             }) : 
             event.yesList.split('').map(item => {
@@ -282,10 +284,18 @@ const EventPage = (props) => {
             })
             } */}
 			<h3>no</h3>
-            <p>{event.noList}</p>
-            {/* {event.noList.split(', ').map(item => {
+			<p>{event.noList}</p>
+			{/* {event.noList.split(', ').map(item => {
                 return <p>{item}</p>
             })} */}
+			<style jsx>{`
+				.event-card {
+					border: 3px solid #201b15;
+					border-radius: 20px;
+					padding: 2rem;
+					margin: 2rem 0;
+				}
+			`}</style>
 		</div>
 	);
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import '../styles/header.css';
+// import '../styles/header.css';
 
 const initialValue = false;
 
@@ -31,6 +31,39 @@ const Header = (props) => {
 						sign up
 					</Link>
 				</nav>
+				<style jsx>{`
+					header {
+						display: flex;
+						flex-flow: row nowrap;
+						justify-content: space-between;
+						align-items: center;
+						margin-bottom: 5rem;
+					}
+
+					nav {
+						display: flex;
+						flex-flow: row nowrap;
+						align-items: baseline;
+					}
+					nav a {
+						margin-left: 2rem;
+					}
+					nav a:hover {
+						/* color: red; */
+						text-decoration: underline;
+					}
+
+					.bordered-btn {
+						border: 2px solid;
+						border-radius: 30px;
+						padding: 0.5rem 1rem;
+					}
+					.bordered-btn:hover {
+						background-color: #201b15;
+						color: #f7dfdb;
+						text-decoration: none;
+					}
+				`}</style>
 			</header>
 		);
 	} else {
@@ -53,6 +86,41 @@ const Header = (props) => {
 						log out
 					</button>
 				</nav>
+				<style jsx>{`
+					header {
+						display: flex;
+						flex-flow: row nowrap;
+						justify-content: space-between;
+						align-items: center;
+						margin-bottom: 5rem;
+					}
+
+					nav {
+						display: flex;
+						flex-flow: row nowrap;
+						align-items: baseline;
+					}
+					nav a:hover {
+						/* color: red; */
+						text-decoration: underline;
+					}
+
+					.bordered-btn {
+						border: 2px solid;
+						border-radius: 30px;
+						padding: 0.5rem 1rem;
+						font-family: 'Rubik', sans-serif;
+						font-size: 1.8rem;
+						font-weight: 500;
+						margin-left: 2rem;
+						background: none;
+					}
+					.bordered-btn:hover {
+						background-color: #201b15;
+						color: #f7dfdb;
+						text-decoration: none;
+					}
+				`}</style>
 			</header>
 		);
 	}
