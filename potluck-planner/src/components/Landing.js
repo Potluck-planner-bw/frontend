@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './Header';
 import SocialIcons from './SocialIcons';
-import '../styles/Landing.css';
 
 const Landing = () => {
 	return (

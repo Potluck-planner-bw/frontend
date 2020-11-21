@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
-import Header from './Header'
+import Header from './Header';
 
 // 🎒 Initial Values
 const initialFormValues = {
@@ -9,42 +9,41 @@ const initialFormValues = {
 };
 
 const SignUp = () => {
-    const [formValues, setFormValues] = useState(initialFormValues);
+	const [formValues, setFormValues] = useState(initialFormValues);
 
-    const handleChange = (event) => {
+	const handleChange = (event) => {
 		setFormValues({
 			...formValues,
 			[event.target.name]: event.target.value,
 		});
-    };
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const newUser = {
-            username: formValues.username,
-            password: formValues.password
-        }
+	};
 
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const newUser = {
+			username: formValues.username,
+			password: formValues.password,
+		};
 
-        axiosWithAuth()
-        .post('/auth/register', newUser)
-            .then(res => {
-                console.log(res)
-                alert(`Account successfully created: username: ${formValues.username}, password: ${formValues.password}`)
-                setFormValues(initialFormValues)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-    
-    return (
+		axiosWithAuth()
+			.post('/auth/register', newUser)
+			.then((res) => {
+				console.log(res);
+				alert(
+					`Account successfully created: username: ${formValues.username}, password: ${formValues.password}`
+				);
+				setFormValues(initialFormValues);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+	return (
 		<>
 			<Header />
 			<form onSubmit={handleSubmit}>
-				<h2>Register</h2>
-				<p>username: User1</p>
-				<p>password: password</p>
+				<h2>sign up</h2>
 				<input
 					type='text'
 					name='username'
@@ -62,7 +61,7 @@ const SignUp = () => {
 				<button>Create User</button>
 			</form>
 		</>
-    )
-}
+	);
+};
 
-export default SignUp
+export default SignUp;
